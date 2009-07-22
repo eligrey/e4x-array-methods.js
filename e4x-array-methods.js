@@ -1,7 +1,7 @@
 /*
-* e4x-array-methods.js v0.1.2
+* e4x-array-methods.js v0.1.3
 *
-* 2009-07-20
+* 2009-07-22
 *
 * By Elijah Grey, http://eligrey.com
 *
@@ -241,8 +241,8 @@
 	
 		// xmllist.sort()
 		// syntax: xmllist.sort(function(a, b))
-		sort: function sort() {
-			return XMLList.prototype.function::concat.apply(
+		sort: function sort(compareFun) {
+			return XMLproto.function::concat.apply(
 				<></>,
 				Array.prototype.sort.apply(
 					this.slice(),
@@ -253,20 +253,46 @@
 	
 		// xmllist.indexOf() and xmllist.lastIndexOf()
 		// syntax: xmlist[method](searchElement, fromIndex)
-		// XML is converted to strings because these methods are useless on objects
 	
-		indexOf: function indexOf() {
-			return Array.prototype.indexOf.apply(
-				this.slice().map(toXMLString),
-				Array.slice(arguments).map(toXMLString)
-			);
+		indexOf : function indexOf(elt /*, from*/) {
+			var len = this.length() >>> 0;
+	
+			var from = Number(arguments[1]) || 0;
+			from = (from < 0)
+						? Math.ceil(from)
+						: Math.floor(from);
+			if (from < 0)
+				from += len;
+	
+			for (; from < len; from++)
+				if (from in this && this[from] == elt) // use == instead of === for XML
+					return from;
+	
+			return -1;
 		},
 	
-		lastIndexOf: function lastIndexOf() {
-			return Array.prototype.lastIndexOf.apply(
-				this.slice().map(toXMLString),
-				Array.slice(arguments).map(toXMLString)
-			);
+		lastIndexOf: function lastIndexOf(elt /*, from*/) {
+			var len = this.length(),
+			from = Number(arguments[1]);
+			
+			if (isNaN(from))
+				from = len - 1;
+			
+			else {
+				from = (from < 0)
+							? Math.ceil(from)
+							: Math.floor(from);
+				if (from < 0)
+					from += len;
+				else if (from >= len)
+					from = len - 1;
+			}
+
+			for (; from > -1; from--)
+				if (from in this && this[from] == elt) // use == instead of === for XML
+					return from;
+			
+			return -1;
 		}
 	});
 
