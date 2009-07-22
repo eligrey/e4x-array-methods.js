@@ -19,18 +19,18 @@
 	if (typeof XML == "undefined")
 		return;
 	
+	var XMLproto = XML.prototype;
+	
 	function extendXMLproto(methods) {
-		var XMLproto = XML.prototype;
-		
 		for (var method in methods)
 			if (methods.hasOwnProperty(method))
-				XML.prototype.function::[method] = methods[method]; // yes, this is valid JavaScript 1.6
+				XMLproto.function::[method] = methods[method]; // yes, this is valid JavaScript 1.6
 	};
 	
-	function requireXMLList(xml, fnName) { // this is needed because XML inherits from XMLList (wtf?)
+	function requireXMLList(xml, fnName) { // this is needed because XML inherits from XMLList (wtf)
 		var notXMLList = typeof xml != "xml"; // check if xml
 		if (!notXMLList) notXMLList = !!xml.length(); // if 0, can only be XML list
-		if (notXMLList) { // still maby an xmllist
+		if (notXMLList) { // still a possible XML list
 			try {
 				xml[0] = xml[0]; // throws error on all non-XML lists
 				notXMLList = false;
@@ -241,14 +241,20 @@
 	
 		// xmllist.sort()
 		// syntax: xmllist.sort(function(a, b))
-		sort: function sort(compareFun) {
-			return XMLproto.function::concat.apply(
+		sort: function sort(/*compareFun*/) {
+			var sorted = XMLproto.function::concat.apply(
 				<></>,
 				Array.prototype.sort.apply(
 					this.slice(),
 					Array.slice(arguments)
 				)
-			);
+			),
+			len = sorted.length();
+			
+			for (var i = 0; i < len; i++)
+				this[i] = sorted[i];
+			
+			return this;
 		},
 	
 		// xmllist.indexOf() and xmllist.lastIndexOf()
@@ -297,3 +303,4 @@
 	});
 
 })();
+
