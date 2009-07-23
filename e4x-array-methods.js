@@ -1,5 +1,5 @@
 /*
-* e4x-array-methods.js v0.1.3
+* e4x-array-methods.js v0.1.3.1
 *
 * 2009-07-22
 *
@@ -43,13 +43,6 @@
 	function requireFunCallback(fun) { // check if something is fun, er... a function
 		if (typeof fun != "function") // boring un-fun non-function
 			throw new TypeError("Callback is not a function");	
-	};
-	
-	function toXMLString(x) {
-		if (typeof x == "xml")
-			return x.toXMLString();
-		
-		else return x;
 	};
 	
 	extendXMLproto({
@@ -109,7 +102,7 @@
 			toRemove = args.shift(),
 			removed  = [];
 		
-			for (var i=0; i<toRemove; i++) {
+			for (var i = 0; i < toRemove; i++) {
 				removed.push(this[index]);
 				delete this[index];
 			}
@@ -146,9 +139,9 @@
 			var xml = XMLList(this.toXMLString()); // clone XML
 		
 			// if no args, the only intention could be to make an array
-			var sliced = (returnArray === true || arguments.length === 0) ? [] : <></>;
+			var sliced = returnArray ? [] : <></>;
 		
-			for (; from<to; from++)
+			for (; from < to; from++)
 				sliced.push(xml[from]);
 		
 			return sliced;
@@ -165,7 +158,10 @@
 		// xmllist.reverse()
 		// syntax: xmllist.reverse()
 		reverse: function reverse() {
-			return XMLList(this.slice().map(toXMLString).reverse().join(""));
+			return XMLproto.function::concat.apply(
+				<></>,
+				this.slice().reverse()
+			);
 		},
 
 		// syntax for all until sort: xmlist[method](function(item, index, xmllist), thisObject)
@@ -175,7 +171,7 @@
 			requireFunCallback(fun);
 		
 			var len = this.length();
-			for (var i=0; i<len; i++)
+			for (var i = 0; i < len; i++)
 				if (i in this)
 					fun.call(thisp, this[i], i, this);
 		},
@@ -187,7 +183,7 @@
 			var len = this.length(),
 			res = <></>;
 		
-			for (var i=0; i<len; i++)
+			for (var i = 0; i < len; i++)
 				if (i in this)
 					res[i] = fun.call(thisp, this[i], i, this);
 		
@@ -218,7 +214,7 @@
 			var len = this.length(),
 			res = <></>;
 		
-			for (var i=0; i<len; i++)
+			for (var i = 0; i < len; i++)
 				if (i in this && !fun.call(thisp, this[i], i, this) )
 						return false;
 		
@@ -232,7 +228,7 @@
 			var len = this.length(),
 			res = <></>;
 		
-			for (var i=0; i<len; i++)
+			for (var i = 0; i < len; i++)
 				if (i in this && fun.call(thisp, this[i], i, this) )
 						return true;
 		
