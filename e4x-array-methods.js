@@ -97,7 +97,8 @@
 		splice: function splice() {
 			requireXMLList(this, "splice");
 		
-			var args = Array.slice(arguments),
+			var
+			args     = Array.slice(arguments),
 			index    = args.shift(),
 			toRemove = args.shift(),
 			removed  = [];
@@ -133,13 +134,12 @@
 		slice: function slice(from, to, returnArray) {		
 			from = (isNaN(+from) ? 0 : +from);
 			to   = (isNaN(+to)   ? this.length() : +to);
-		
+					
 			returnArray = returnArray === true || arguments.length === 0;
 		
-			var xml = XMLList(this.toXMLString()); // clone XML
-		
 			// if no args, the only intention could be to make an array
-			var sliced = returnArray ? [] : <></>;
+			var xml    = XMLList(this.toXMLString()), // clone XML
+			    sliced = returnArray ? [] : <></>;
 		
 			for (; from < to; from++)
 				sliced.push(xml[from]);
@@ -164,7 +164,8 @@
 			);
 		},
 
-		// syntax for all until sort: xmlist[method](function(item, index, xmllist), thisObject)
+		// syntax for all until sort:
+		// xmlist[method](function(item, index, xmllist), thisObject)
 
 		// xmllist.forEach()
 		forEach: function forEach(fun, thisp) {
