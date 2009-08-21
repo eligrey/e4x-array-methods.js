@@ -1,5 +1,5 @@
 /*
-* e4x-array-methods.js v0.1.3.1
+* e4x-array-methods.js v0.1.3.2
 *
 * 2009-07-22
 *
@@ -120,7 +120,7 @@
 		// xmllist.concat()
 		// syntax: xmlist.concat(xml1, ..., xmlN)
 		concat: function concat() {
-			var res = this.slice(0); // clone this to results
+			var res = this.copy(); // clone this to results
 		
 			Array.slice(arguments).forEach(function(arg) {
 				res += arg;
@@ -138,7 +138,7 @@
 			returnArray = returnArray === true || arguments.length === 0;
 		
 			// if no args, the only intention could be to make an array
-			var xml    = XMLList(this.toXMLString()), // clone XML
+			var xml    = this.copy(), // clone XML
 			    sliced = returnArray ? [] : <></>;
 		
 			for (; from < to; from++)
