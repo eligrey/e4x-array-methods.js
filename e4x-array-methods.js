@@ -3,7 +3,7 @@
 *
 * 2009-07-22
 *
-* By Elijah Grey, http://eligrey.com
+* By Eli Grey, http://eligrey.com
 *
 * A library that implements every array method for XML lists.
 * Requires E4X, array generics, and array extensions introduced in JavaScript 1.6
