@@ -15,6 +15,8 @@
 // This library is intended for making XML easier to use with server-side
 // JavaScript environments based on (Spider|Trace|Action)Monkey and Rhino.
 
+/*! @source http://purl.eligrey.com/github/e4x-array-methods.js/blob/master/e4x-array-methods.js*/
+
 (function() {
 	if (typeof XML == "undefined")
 		return;
