@@ -8,7 +8,7 @@
 * A library that implements every array method for XML lists.
 * Requires E4X, array generics, and array extensions introduced in JavaScript 1.6
 *
-* License: GNU GPL v3 and the X11/MIT license
+* Licensed under the X11/MIT License
 *   See http://eligrey.com/blog/about/license
 */
 
