@@ -8,8 +8,8 @@
 * A library that implements every array method for XML lists.
 * Requires E4X, array generics, and array extensions introduced in JavaScript 1.6
 *
-* Licensed under the X11/MIT License
-*   See http://eligrey.com/blog/about/license
+* Licensed under the MIT License
+*   See https://github.com/eligrey/e4x-array-methods.js/blob/master/LICENSE.md
 */
 
 // This library is intended for making XML easier to use with server-side
